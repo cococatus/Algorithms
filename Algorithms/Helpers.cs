@@ -49,6 +49,23 @@ namespace Algorithms
             items[to + 1] = temp;
         }
 
+        public static int FindIndexOfSmallestFromIndex(int[] items, int sortedRangeEndIndex)
+        {
+            int currentSmallest = items[sortedRangeEndIndex];
+            int currentSmallestIndex = sortedRangeEndIndex;
+
+            for (int i = sortedRangeEndIndex + 1; i < items.Length; i++)
+            {
+                if(currentSmallest.CompareTo(items[i]) > 0)
+                {
+                    currentSmallest = items[i];
+                    currentSmallestIndex = i;
+                }
+            }
+
+            return currentSmallestIndex;
+        }
+
         public static void PrintArray(int[] array)
         {
             foreach (var item in array)
