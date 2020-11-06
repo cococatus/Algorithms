@@ -66,6 +66,78 @@ namespace Algorithms
             return currentSmallestIndex;
         }
 
+        public static void Merge(int[] items, int[] left, int[] right)
+        {
+            int leftIndex = 0, rightIndex = 0, targetIndex = 0;
+            int remaining = left.Length + right.Length;
+
+            while(remaining > 0)
+            {
+                if(leftIndex >= left.Length)
+                {
+                    items[targetIndex] = right[rightIndex++];
+                }
+
+                else if(rightIndex >= right.Length)
+                {
+                    items[targetIndex] = left[leftIndex++];
+                }
+
+                else if(left[leftIndex].CompareTo(right[rightIndex]) < 0)
+                {
+                    items[targetIndex] = left[leftIndex++];
+                }
+
+                else
+                {
+                    items[targetIndex] = right[rightIndex++];
+                }
+
+                targetIndex++;
+                remaining--;
+            }
+        }
+
+        //https://www.geeksforgeeks.org/in-place-merge-sort/
+        public static void Merge(int[] items, int left, int mid, int right)
+        {
+            int target = mid + 1;        
+
+            // If the direct merge is already sorted 
+            if (items[mid] <= items[target])
+            {
+                return;
+            }
+
+            while (left <= mid && target <= right)
+            {
+                // If element 1 is in right place 
+                if (items[left] <= items[target])
+                {
+                    left++;
+                }
+                else
+                {
+                    int value = items[target];
+                    int index = target;
+
+                    // Shift all the elements between element 1 
+                    // element 2, right by 1. 
+                    while (index != left)
+                    {
+                        items[index] = items[index - 1];
+                        index--;
+                    }
+                    items[left] = value;
+
+                    // Update all the pointers 
+                    left++;
+                    mid++;
+                    target++;
+                }
+            }
+        }
+
         public static void PrintArray(int[] array)
         {
             foreach (var item in array)
